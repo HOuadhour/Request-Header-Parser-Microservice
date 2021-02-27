@@ -8,7 +8,7 @@ app.use(cors({ optionsSuccessStatus: 200 })); // some legacy browsers choke on 2
 
 app.get("/api/whoami", (req, res) => {
   const lang = req.headers["accept-language"];
-  const ip = req.ip.match(/[1-9]{3}.+[0-9]$/)[0];
+  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   const soft = req.headers["user-agent"];
 
   res.json({
